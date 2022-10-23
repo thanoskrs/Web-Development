@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TechStuff</title>
+
+        <meta charset="UTF-8">
+        <meta name="description" content="Contact us for any issues.">
+        <meta name="author" content="Thanas Kouro">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <main>
+        <form>
+            <fieldset>
+                <legend>Personal Info</legend>
+                <ul>
+                    <li>
+                        <label for="txt_first_name">First Name: </label>
+                        <input type="text" id="txt_first_name" name="first_name" autocomplete="name" required>        
+                    </li>
+                    <li>
+                        <label for="txt_last_name">Last Name: </label>
+                        <input type="text" id="txt_last_name" name="last_name" autocomplete="family-name" required>
+                    </li>
+                    <li>
+                        <label for="txt_email">Email: </label>
+                        <input type="email" id="txt_email" name="email" autocomplete="email" required>
+                    </li>
+                    <li>
+                        <label for="txt_telephone">Phone Number: </label>
+                        <input type="tel" id="txt_telephone" name="telephone" autocomplete="tel" required>
+                    </li>
+                </ul>
+            </fieldset>
+
+            <fieldset>
+                <legend>Purchase Info</legend>
+                <ul>
+                    <li>
+                        <label for="sel_category">Product: </label>
+                        <select id="sel_category" name="product" required>
+                            <optgroup label="Smartphones and Tablets">
+                                <option value="smartphone">Smartphones</option>
+                                <option value="earbuds">Earbuds</option>
+                                <option value="peripherals">Peripherals</option>
+                                <option value="tablets">Tablets</option>
+                            </optgroup>
+
+                            <optgroup label="PCs and Peripherals">
+                                <option value="pc">PCs</option>
+                                <option value="laptops">Laptops</option>
+                                <option value="peripherals">Peripherals</option>
+                            </optgroup>
+
+                            <optgroup label="Imaging">
+                                <option value="pc">PCs</option>
+                                <option value="laptops">Laptops</option>
+                                <option value="peripherals">Peripherals</option>
+                            </optgroup>
+
+                            <optgroup label="TVs">
+                                <option value="tvs">TVs</option>
+                                <option value="soundbars">Soundbars</option>
+                                <option value="peripherals">Peripherals</option>
+                            </optgroup>
+
+                            <optgroup label="Home Devices">
+                                <option value="air_con">Air Conditions</option>
+                                <option value="fridges">Fridges</option>
+                                <option value="cookers">Cookers</option>
+                            </optgroup>
+                        </select>
+                    </li>
+                        
+                    <li>
+                        <label for="txt_product_id">Product Code: </label>
+                        <input type="text" id="txt_product_id" name="product_id" required>
+                    </li>
+                    <li>
+                        <label for="date_of_purchase">Date of Purchase: </label>
+                        <input type="date" id="date_of_purchase" name="purchase_date" required>
+                    </li>
+                    <li>
+                        <label for="file_of_purchase">Date of Purchase: </label>
+                        <input type="file" id="file_of_purchase" name="product_receipt" required>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </main>
+</html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TechStuff</title>
+        <title>Contact</title>
 
         <meta charset="UTF-8">
         <meta name="description" content="Contact us for any issues.">
@@ -10,7 +10,12 @@
     </head>
 
     <main>
-        <!--TODO: Add validations for the form-->
+        <header>
+                <h1>Contuct us!</h1>
+            <p>For technical support or any issue, please fill and submit the form below and our customer 
+                service will contact you as soon as possible!
+            </p>
+        </header>
         <form>
             <fieldset>
                 <legend>Personal Info</legend>
@@ -29,7 +34,8 @@
                     </li>
                     <li>
                         <label for="txt_telephone">Phone Number: </label>
-                        <input type="tel" id="txt_telephone" name="telephone" autocomplete="tel" required>
+                        <input type="tel" id="txt_telephone" name="telephone" autocomplete="tel" 
+                        pattern="[0-9]{10}" required>
                     </li>
                 </ul>
             </fieldset>
@@ -79,7 +85,8 @@
                     </li>
                     <li>
                         <label for="date_of_purchase">Date of Purchase: </label>
-                        <input type="date" id="date_of_purchase" name="purchase_date" required>
+                        <input type="date" id="date_of_purchase" name="purchase_date" 
+                        max="2022-10-31" required>
                     </li>
                     <li>
                         <label for="file_of_purchase">Date of Purchase: </label>
@@ -87,6 +94,8 @@
                     </li>
                 </ul>
             </fieldset>
+            <input type="reset" id="contact_reset" name="reset">
+            <input type="submit" id="contact_submit" name="submit">
         </form>
     </main>
 </html>

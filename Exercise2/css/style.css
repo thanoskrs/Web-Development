@@ -1,0 +1,86 @@
+body{
+    background-color:rgb(110,110,110);
+    
+}
+
+h1{
+    color: #ffffff;
+    font-family: "Copperplate", fantasy;
+    font-style:italic;
+    font-weight: lighter;
+    text-shadow:  -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #baff39, 1px 1px 0 #000;
+  }
+
+h2,h3,h4,h5{
+    color:rgb(186,255,57);
+    font-family: "Copperplate", fantasy;
+    font-style:italic;
+    font-weight: lighter;
+    text-shadow:  -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #f8f8f7, 1px 1px 0 #000;
+}
+
+p{
+    color:#fafdda;
+    font-family: "Verdana", sans-serif;
+    font-weight:lighter;
+    text-shadow: 2px 2px  rgb(0, 0, 0);
+}
+li{
+    color:#fafdda;
+    font-family: "Verdana", sans-serif;
+    font-weight:lighter;
+    text-shadow: 2px 2px  rgb(0, 0, 0);
+}
+
+a{
+    color: aquamarine;
+    font-family: "Verdana", sans-serif;
+    font-weight:lighter;
+    text-shadow: 2px 2px  rgb(0, 0, 0);
+}
+
+legend{
+    color:rgb(186,255,57);
+    font-family: "Verdana", sans-serif;
+    font-weight:lighter;
+    text-shadow: 2px 2px  rgb(0, 0, 0);
+}
+
+td{
+    color:#fafdda;
+    font-family: "Verdana", sans-serif;
+    font-weight:lighter;
+    font-size: smaller;
+    text-shadow: 2px 2px  rgb(0, 0, 0);
+}
+caption{
+    color:#fafdda;
+    font-family: "Verdana", sans-serif;
+    font-weight:bolder;
+    font-size: larger;
+    text-shadow: 2px 2px  rgb(0, 0, 0);
+}
+
+pr{
+    color:#fafdda;
+    font-family: "Verdana", sans-serif;
+    font-size: smaller;
+    text-shadow: 2px 2px  rgb(0, 0, 0);
+    margin: 30px  ;
+    
+}
+
+ph{
+    color:#fafdda;
+    font-family: "Verdana", sans-serif;
+    font-weight:bolder;
+    font-size: larger;
+    text-shadow: 2px 2px  rgb(0, 0, 0);
+    
+}
+h6,b{
+    color:#fafdda;
+    font-family: "Verdana", sans-serif;
+    font-style: italic;
+    text-shadow: 2px 2px  rgb(0, 0, 0); 
+}

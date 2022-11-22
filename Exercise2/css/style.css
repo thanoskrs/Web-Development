@@ -202,7 +202,8 @@ table {
     border: 1px solid rgba(0, 0, 0, 0.235);
 }
 
-caption{
+.specifications > h2{
+    text-align: center;
     color: black;
     font-family: "Verdana", sans-serif;
     font-weight: bolder;
@@ -344,7 +345,10 @@ b{
     background-color:#a9ccd2;
 }
 
-
+#about-us {
+    text-align: center;
+    margin-bottom: 3em;
+}
 .bio-individual {
     width: 45%;
     display: inline-block;

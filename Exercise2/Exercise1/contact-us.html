@@ -17,62 +17,70 @@
         </header> 
 
         <main>
-            <p>For technical support or any issue, please fill and submit the form below and our customer 
-                service will contact you as soon as possible!
-            </p>
+            <div class="center">
+                <p>For technical support or any issue, please fill and submit the form below and our customer 
+                    service will contact you as soon as possible!
+                </p>
+            </div>
             <form id="contact-form">
-                <fieldset id="personal-info">
+                <fieldset id="personal-info" class="field_set">
                     <legend>Personal Info</legend>
                     <ul>
                         <li>
-                            <label for="txt_first_name">First Name: </label>
+                            <label class="required" for="txt_first_name">First Name </label>
                             <input type="text" id="txt_first_name" name="first_name" autocomplete="name" required>        
                         </li>
                         <li>
-                            <label for="txt_last_name">Last Name: </label>
+                            <label class="required"  for="txt_last_name">Last Name </label>
                             <input type="text" id="txt_last_name" name="last_name" autocomplete="family-name" required>
                         </li>
                         <li>
-                            <label for="txt_email">Email: </label>
+                            <label class="required"  for="txt_email">Email </label>
                             <input type="email" id="txt_email" name="email" autocomplete="email" required>
                         </li>
                         <li>
-                            <label for="txt_telephone">Phone Number: </label>
+                            <label class="required"  for="txt_telephone">Phone Number </label>
                             <input type="tel" id="txt_telephone" name="telephone" autocomplete="tel" 
                             pattern="[0-9]{10}" required>
                         </li>
                     </ul>
                 </fieldset>
     
-                <fieldset id="purchase-info">
+                <fieldset id="purchase-info" class="field_set">
                     <legend>Purchase Info</legend>
                     <ul>
                         <li>
-                            <label for="sel_category">Product: </label>
+                            <label class="required" for="sel_category">Product </label>
                             <select id="sel_category" name="product">
-                                <optgroup label="Smartphones and Tablets">
-                                    <option value="smartphone">Smartphones</option>
+                                <optgroup label="Smartphones & Tablets">
+                                    <option value="smartphones">Smartphones</option>
                                     <option value="earbuds">Earbuds</option>
-                                    <option value="peripherals">Peripherals</option>
+                                    <option value="smartwatches">Smartwatches</option>
                                     <option value="tablets">Tablets</option>
+                                    <option value="accessories">Accessories</option>
                                 </optgroup>
-    
-                                <optgroup label="PCs and Peripherals">
+                                
+                                <optgroup label="PCs & Peripherals">
                                     <option value="pc">PCs</option>
                                     <option value="laptops">Laptops</option>
-                                    <option value="peripherals">Peripherals</option>
+                                    <option value="monitors">Monitors</option>
+                                    <option value="storage">Storage</option>
+                                    <option value="printers">Printers</option>
                                 </optgroup>
-    
+
                                 <optgroup label="Imaging">
-                                    <option value="pc">PCs</option>
-                                    <option value="laptops">Laptops</option>
-                                    <option value="peripherals">Peripherals</option>
+                                    <option value="drones">Drones</option>
+                                    <option value="dslr">DSLR</option>
+                                    <option value="actionCameras">Action Cameras</option>
+                                    <option value="aompact">Compact</option>
+                                    <option value="cameraAccessories">Accessories</option>
                                 </optgroup>
     
-                                <optgroup label="TVs">
+                                <optgroup label="Image & Sound">
                                     <option value="tvs">TVs</option>
                                     <option value="soundbars">Soundbars</option>
-                                    <option value="peripherals">Peripherals</option>
+                                    <option value="decoders">Decoders</option>
+                                    <option value="projectors">Projectors</option>
                                 </optgroup>
     
                                 <optgroup label="Home Devices">
@@ -84,28 +92,32 @@
                         </li>
                             
                         <li>
-                            <label for="txt_product_id">Product Code: </label>
+                            <label  for="txt_product_id">Product SKU </label>
                             <input type="text" id="txt_product_id" name="product_id" required>
                         </li>
                         <li>
-                            <label for="date_of_purchase">Date of Purchase: </label>
+                            <label for="date_of_purchase">Date of Purchase </label>
                             <input type="date" id="date_of_purchase" name="purchase_date" 
                             max="2022-10-31" required>
                         </li>
                         <li>
-                            <label for="file_of_purchase">Date of Purchase: </label>
+                            <label class="required"  for="file_of_purchase">Receipt </label>
                             <input type="file" id="file_of_purchase" name="product_receipt" required>
                         </li>
                         <li>
-                            <label for="txt_issue">Describe the issue: </label>
-                            <textarea rows="5" cols="30" id="txt_issue" name="issue" required></textarea>
+                            <label class="required"  for="txt_issue">Describe the issue </label>
+                            <textarea rows="4" cols="30" id="txt_issue" name="issue" required></textarea>
                         </li>
                     </ul>
                 </fieldset>
-                <input type="reset" id="contact_reset" name="reset">
-                <input type="submit" id="contact_submit" name="submit">
+                <input type="reset" id="contact_reset" name="reset" class="button" value="Reset">
+                <input type="submit" id="contact_submit" name="submit" class="button" value="Submit">
             </form>
         </main>
+        <footer>
+            <p><a href="about-us.html">About us</a></p>
+            <p><a href="contact-us.html">Contact us</a></p>
+        </footer>
     </body>
     
 </html>

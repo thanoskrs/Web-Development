@@ -209,6 +209,19 @@ li{
     font-weight:lighter;
 }
 
+footer p {
+    text-align: center;
+}
+
+footer {
+    background-color:#3e4a4b62 ;
+    height: 5em;
+    bottom: 0;
+    margin-top: 100%;
+    width: 100%;
+    position:absolute;
+}
+
 /*h1{
     color: #ffffff;
     font-family: "Copperplate", fantasy;

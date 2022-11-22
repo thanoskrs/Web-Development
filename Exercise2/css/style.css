@@ -274,9 +274,104 @@ ph{
     
 }*/
 
+
 b{
     color: #aa665b;
     font-family: "Verdana", sans-serif;
     font-style: italic;
     text-shadow: 0px 1px ;
 }
+.main_index {
+    color:var(--blue);
+    font-style: italic;
+    text-shadow: 2px 1px  rgb(0, 0, 0);
+    text-align: center;
+    font-size: 1.5em;
+}
+
+
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #882012;
+    padding: 20px 70px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: none;
+  }
+
+  .butt_text{
+    color: white;;
+    font-style: italic;
+    text-shadow: 2px 1px  rgb(0, 0, 0);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bolder;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: absolute;
+    display: inline-block;
+    margin: 0;
+    top: 40%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 200px;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: var(--blue);
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color:#a9ccd2;}
+
+  .center {
+    text-align: center;
+    
+  }
+
+  .button{
+    background-color: #882012;
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-size: 15px;
+    border: none;
+    color: white;;
+    font-style: italic;
+    text-shadow: 2px 1px  rgb(0, 0, 0);
+    text-align: center;
+    margin-top: 10px;
+    
+  }
+  
+
+  .field_set{
+    background-color: var(--blue);
+    background: linear-gradient(var(--blue), white);
+   }
+

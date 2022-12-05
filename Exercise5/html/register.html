@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Register</title>
+
+        <meta charset="UTF-8">
+        <meta name="register" content="Register as a new user">
+        <meta name="author" content="Dimitris Evangelou">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../css/style.css"> 
+        <script src="../javascript/script.js"></script>
+    </head>
+
+
+    <body class="body-grid-container">
+        <header>
+            <h1><a href="index.html">TechStuff</a></h1>
+        </header> 
+
+        <main>
+                <p class="warning_register">If you are not already registered , fill out this form in order to create a new account
+                </p>
+
+            <form id="register-form">
+                <fieldset id="personal-info" class="field_set">
+                    <legend>Personal Info</legend>
+                    <ul>
+                        <li>
+                            <label class="required" for="txt_first_name">First Name </label>
+                            <input class="register_input" type="text" id="txt_first_name" name="first_name" autocomplete="name" required>        
+                        </li>
+                        <li>
+                            <label class="required"  for="txt_last_name">Last Name </label>
+                            <input class="register_input" type="text" id="txt_last_name" name="last_name" autocomplete="family-name" required>
+                        </li>
+                        <li>
+                            <label class="required"  for="txt_email">Email </label>
+                            <input class="register_input" type="email" id="txt_email" name="email" autocomplete="email" required>
+                            <button onclick="email_check()">check</button>
+                            <p class="error" id="email_error"></p>
+                        </li>
+                        <li>
+                            <label class="required"  for="txt_adress">Adress </label>
+                            <input class="register_input" type="txt" id="txt_adress" name="adress" required>
+                        </li>
+                        <li>
+                            <label class="required"  for="txt_date">Birthday date </label>
+                            <input class="register_input" type="date" id="birthday_date" name="date" autocomplete="date" required>
+                            <button onclick="date_check()">check</button>
+                            <p class="error" id="date_error"></p>
+                        </li>
+                        <li>
+                            <label class="required"  for="txt_telephone">Phone Number </label>
+                            <input class="register_input" type="tel" id="txt_telephone" name="telephone" autocomplete="tel" 
+                            pattern="[0-9]{10}" required>
+                            <button onclick="phone_check()">check</button>
+                            <p class="error" id="phone_error"></p>
+                        </li><br><br>
+                    </ul>
+                    <details>
+                        <summary class="details_header" >Help</summary>
+                        <p class="details">Input your personal information to register</p>
+                    </details>
+                </fieldset>
+    
+                <fieldset id="payment-info" class="field_set">
+                    <legend>Payment Info</legend>
+                    <ul>
+                        <li>
+                            <label class="required" for="pay_method">Payment Method </label>
+                            <select  class="register_list" id="pay_methody" name="payment">
+                                <optgroup label="Card payment">
+                                    <option value="Credit">Credit Card</option>
+                                    <option value="Debit">Debit Card</option>
+                                    <option value="Pay Pal">Pay Pal</option>
+                                </optgroup>
+
+                                <optgroup label="Cash payment">
+                                    <option value="Cash delivery">Cash on deivery</option>
+                                    <option value="Pick up">Pick up from store</option>
+                                </optgroup>
+                            </select>
+                            <li>
+                                <label class="required"  for="txt_s_adress">Shipment Adress </label>
+                                <input class="register_input" type="txt" id="txt_adress" name="adress" required>
+                            </li>
+                        </li><br><br>
+                    </ul>
+                    <details>
+                        <summary class="details_header" >Help</summary>
+                        <p class="details">Input your payment method so it will be faster for you to make orders</p>
+                    </details>
+                </fieldset>
+
+                <fieldset id="account-info" class="field_set">
+                    <legend>Account Info</legend>
+                    <ul>
+                        <li>
+                            <label class="required" for="txt_user_name">User Name </label>
+                            <input class="register_input" type="text" id="txt_user_name" name="user_name" autocomplete="name" required>        
+                        </li>
+                        <li>
+                            <label class="required"  for="txt_password">Password </label>
+                            <input class="register_input" type="password" id="txt_password" name="password" minlength="8" required>
+                        </li>
+                        <li>
+                            <label class="required"  for="txt_cpassword">Confirm Password </label>
+                            <input class="register_input" type="password" id="txt_cpassword" name="cpassword" onkeyup='check_password();' required>
+                            <span id='message'></span>
+                        </li>
+                        <li><br><br>
+                    </ul>
+                    <details>
+                        <summary class="details_header" >Help</summary>
+                        <p class="details">Input your account information. Password must be atleast 8 character</p>
+                    </details>
+                </fieldset>
+
+                <fieldset id="contact" class="field_set">
+                    <legend>Keep Up With Offers</legend>
+                    <ul>
+                        <li>
+                            <label for="contact_type">Contact type </label>
+                            <select class="register_list" id="contact_type" name="cont_type">
+                                <optgroup label="Choose one from below">
+                                    <option value="SMS">SMS</option>
+                                    <option value="Viber">Viber</option>
+                                    <option value="Email">Email</option>
+                                    <option value="WhatsApp">WhatsApp</option>
+                                </optgroup>
+                            </select>
+                        </li><br><br>
+                    </ul>
+                    <details>
+                        <summary class="details_header" >Help</summary>
+                        <p class="details">Input a contact  type if you want to stay informed about our laytest offers</p>
+                    </details>
+                </fieldset>
+
+                <fieldset id="questionnaire" class="field_set">
+                    <legend>Questionnaire</legend>
+                    <ul>
+                        <li>
+                            <label for="frequency_of_shopping">How frequently do you shop online </label><br>
+                            <select class="register_list" id="shop_type" name="shop_type">
+                                <optgroup label="Choose one from below">
+                                    <option value="1d">Once a day</option>
+                                    <option value="1w">Once a week</option>
+                                    <option value="1m">Once a month</option>
+                                </optgroup>
+                            </select><br><br>
+                        </li>
+                        <li>
+                            <label for="pay_type">What form of payment do you use more often </label><br>
+                            <select class="register_list" id="pay_type" name="pay_type">
+                                <optgroup label="Choose one from below">
+                                    <option value="card">Card</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="pickup">Pick Up</option>
+                                </optgroup>
+                            </select><br><br>
+                        </li>
+                        <li>
+                            <label for="product_type">What products do you buy more often </label><br>
+                            <select class="register_list" id="product_type" name="product_type">
+                                <optgroup label="Choose one from below">
+                                    <option value="Smartph">Smartphones & Tablets</option>
+                                    <option value="PC">PCs & Peripherals</option>
+                                    <option value="Photography">Photography</option>
+                                    <option value="Image">Image & Sound</option>
+                                    <option value="Homed">Home Devices</option>
+                                </optgroup>
+                            </select><br><br>
+                        </li>
+                        <li>
+                            <label for="use_type">How often do you use elctronic devices </label><br>
+                            <select class="register_list" id="use_type" name="use_type">
+                                <optgroup label="Choose one from below">
+                                    <option value="1d">1-2 times a day</option>
+                                    <option value="2d">3-5 times a day</option>
+                                    <option value="3d">6+ times a day</option>
+                                </optgroup>
+                            </select><br><br>
+                        </li>
+                        <li>
+                            <label for="own_type"> How many elctronic devices do you own </label><br>
+                            <select class="register_list" id="own_type" name="use_type">
+                                <optgroup label="Choose one from below">
+                                    <option value="1e">1-2 </option>
+                                    <option value="2e">3-5 </option>
+                                    <option value="3e">6+ </option>
+                                </optgroup>
+                            </select>
+                        </li><br><br>
+                    </ul>
+                    <details class="detail">
+                        <summary class="details_header" >Help</summary>
+                        <p class="details">Fill out this quastionaire to help us improve !!</p>
+                    </details>
+                </fieldset>
+                <div> 
+                    <input type="reset" id="contact_reset" name="reset" class="button" value="Reset">
+                    <input type="submit" id="contact_submit" name="submit" class="button" value="Submit">
+                </div>
+            </form>
+        </main>
+        <footer>
+            <p><a href="about-us.html">About us</a></p>
+            <p><a href="contact-us.html">Contact us</a></p>
+        </footer>
+    </body>
+    
+</html>

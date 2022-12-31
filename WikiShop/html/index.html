@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WikiShop</title>
+        <link href="../images/Wikipedia-logo-v2.svg.png" rel="shortcut icon" type="image/png"/>
+
+        <meta charset="UTF-8">
+
+        <meta name="author" content="Dimitris Evangelou, Thanas Kouro">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="stylesheet" type="text/css" href="../css/style.css"> 
+
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+        <script type="text/javascript" src="../js/categories_script.js"></script>
+
+        <script id="categories-template" type="text/x-handlebars-template">
+            {{#each array}}
+                <div class="category">
+                     <h1>{{title}}</h1>
+                     <a href="category.html?categoryid={{id}}"><img src={{img_url}} alt={{title}} width="350px" height="350px"> </a>
+                </div>
+            {{/each}}
+        </script>
+    </head>
+
+    <body class="body-grid-container">
+        <header>
+            <h1><a href="index.html">WikiShop</a></h1>
+        </header>
+
+        <main>
+            <div id = "categories"> </div>
+        </main>
+
+        <footer>
+            <p><a href="about-us.html">About us</a></p>
+        </footer>
+    </body>
+</html>

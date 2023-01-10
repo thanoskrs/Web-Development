@@ -56,3 +56,4 @@ let updateContent = function(templateId, array, elementId) {
     let element = document.getElementById(elementId)
     element.innerHTML = content
 }
+

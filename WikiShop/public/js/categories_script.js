@@ -9,9 +9,6 @@ let initHeaders = {
 const url = "https://wiki-shop.onrender.com/categories"
 
 window.addEventListener('load', async () => {
-    var templates = {}
-    let categoriesTemplateScript = document.getElementById("categories-template")
-    templates.categories = Handlebars.compile(categoriesTemplateScript.textContent)
 
     let categories;
     await fetch(url, initHeaders)
@@ -20,7 +17,9 @@ window.addEventListener('load', async () => {
         categories = obj
     })
 
-    console.log(categories)
+    var templates = {}
+    let categoriesTemplateScript = document.getElementById("categories-template")
+    templates.categories = Handlebars.compile(categoriesTemplateScript.textContent)
 
     let content = templates.categories({
         array: categories

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WikiShop</title>
+        <link href="../images/Wikipedia-logo-v2.svg.png" rel="shortcut icon" type="image/png"/>
+
+        <meta charset="UTF-8">
+
+        <meta name="author" content="Dimitris Evangelou, Thanas Kouro">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="stylesheet" type="text/css" href="css/style.css"> 
+
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.js"></script>
+        <script type="text/javascript" src="js/products_script.js"></script>
+        <script type="text/javascript" src="js/LoginService.js"></script>
+        <script type="text/javascript" src="js/CartItemService.js"></script>
+
+        <script id="sub-categories-template" type="text/x-handlebars-template">
+            <option value="0">All</option>
+            {{#each array}}
+                <option value={{id}}>{{title}}</option>
+            {{/each}}
+        </script> 
+
+        <script id="products-template" type="text/x-handlebars-template">
+            {{#each array}}
+                <li>
+                    <h2>{{title}}</h2>
+                    <img src={{image}} alt={{title}} width="350px" height="350px">
+                    <p>Price: <b>€{{cost}}</b></p>
+                    <p>{{description}}</p>
+                    <button type="button" value={{id}} onclick="addToCart(this.value)" id="add-to-cart">Add to Cart</button>
+                </li>
+            {{/each}}
+        </script>
+
+    </head>
+
+    <body class="body-grid-container">
+        <header >
+            <h1><a href="index.html">WikiShop</a></h1>
+        </header>
+
+        <main>
+            <a href="cart.html">cart</a>
+            <!-- A button to open the popup form -->
+            <button id="open-button" onclick="openForm()">Log in</button>
+            <button id="log-out" onclick="logOut()">Log out</button>
+
+            <!-- The form -->
+            <div class="form-popup" id="login-div">
+                <form action="#" class="form-container" id="login-form">
+                    <h1>Login</h1>
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" id="username" placeholder="Enter Username" name="username" required>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" id="password" placeholder="Enter Password" name="psw" required>
+
+                    <p id="invalid_data"></p>
+
+                    <button type="button" onclick="sendData()" class="btn">Login</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </form>
+            </div>
+            <div class="background" id="filter">
+                <select id="sub-category-select" onchange="selectSubCategory()"> </select>
+            </div>
+            <ul class="background" id="product-list"> </ul>
+        </main>
+
+        <footer>
+            <p><a href="about-us.html">About us</a></p>
+        </footer>
+    </body>
+</html>
+<!-- action="?email={{email}}&password={{pass}}" -->

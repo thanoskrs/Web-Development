@@ -16,12 +16,13 @@
         <script id="cart-items-table-template" type="text/x-handlebars-template">
             <thead>
                 <tr>
-                    {{#each array.[0]}}
+                    {{#each array.cartItems.[0]}}
                     <th>{{@key}}</th>
                     {{/each}}
                 </tr>
+            </thead>
                 <tbody>
-                    {{#each array}}
+                    {{#each array.cartItems}}
                     <tr>
                         {{#each this}}
                         <td>{{this}}</td>
@@ -30,6 +31,13 @@
                     {{/each}}
                 </tbody>
             </thead>
+            <tfoot>
+                <tr>
+                    <td> <b>Total Cost</b> </td>
+                    <td><b>{{array.totalCartItems}}</b></td>
+                    <td><b>{{array.totalCost}}</b></td>
+                </tr>
+            </tfoot>
         </script>
 
     </head>
@@ -42,6 +50,7 @@
         <main>
             <section id="cart">
 			    <h2>Cart</h2>
+                <div id="loader"></div>
 			    <table id="cart-table" class="table" ></table>
 		    </section>
         </main>

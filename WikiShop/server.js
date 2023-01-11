@@ -35,7 +35,7 @@ const uri = "mongodb+srv://wikiShop:wikiShopProject@cluster0.bbjrdwz.mongodb.net
 const client = new MongoClient(uri,
     {useNewUrlParser: true, useUnifiedTopology: true});
 
-app.post('/category.html/login', (req, res) => {
+app.post('/category.html/login', async (req, res) => {
 
     console.log("POST");
 
@@ -44,24 +44,51 @@ app.post('/category.html/login', (req, res) => {
     
     let found = false;
     let sessionId = null;
+    let totalCartItems = 0;
 
     users.forEach(user => {
         if(user.username == username && user.password == password) {
             found = true;
             sessionId = v4()
             user.sessionId = sessionId
-            console.log(user)
         }
     })
 
-    res.send({"message": sessionId})
+    if(found) {
+        await client
+        .connect()
+        .then(() => {
+            collection = client.db("wikiShop")
+                    .collection("CartItems")
+
+            query = {username: username}
+            return collection.find(query).toArray()
+        })
+        .then(cartItems => {
+            if(cartItems !== null) {
+                totalCartItems = cartItems
+                                        .map(cartItem => parseInt(cartItem.quantity))
+                                        .reduce((a, b) =>  a + b, 0)
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            client.close()
+        })
+    }
+
+    res.send({"message": sessionId,
+                "totalCartItems": totalCartItems})
 })
 
 app.post('/category.html/cart', async (req, res) => {
 
     let username = req.query.username
-    let productId = req.query.productId
-    let sessionId = req.query.sessionId;
+    let sessionId = req.query.sessionId
+    let title = req.query.title
+    let cost = req.query.cost
 
     let found = false;
     
@@ -80,15 +107,16 @@ app.post('/category.html/cart', async (req, res) => {
             collection = client.db("wikiShop")
                     .collection("CartItems")
 
-            query = {username: username, productId: productId}
+            query = {username: username, title: title}
             return collection.findOne(query)
         })
         .then(cartItem => {
             if(cartItem == null) {
                 let item = {
                     username: username,
-                    productId: productId,
-                    quantity: 1
+                    title: title,
+                    quantity: 1,
+                    cost: cost
                 }
                 return collection.insertOne(item)
             } else {
@@ -132,7 +160,7 @@ app.get('/cart', (req, res) => {
                 const collection = client.db("wikiShop")
                         .collection("CartItems")
 
-                query = {username: username}
+                let query = {username: username}
                 return collection.find(query).toArray()
             })
             .then(cartItems =>{
@@ -140,8 +168,14 @@ app.get('/cart', (req, res) => {
                     delete item._id;
                     delete item.username;
                 })
-                console.log(cartItems);
-                res.send({cartItems})
+
+                let totalCost = String(cartItems.map(i => parseInt(i.cost * i.quantity))
+                                        .reduce((a, b) => a + b, 0)) + ' €'
+
+                let totalCartItems = cartItems.map(i => parseInt(i.quantity))
+                                        .reduce((a, b) => a + b, 0)
+
+                res.send({cartItems, totalCost, totalCartItems})
             })
             .catch(err => {
                 console.log(err);
@@ -151,4 +185,24 @@ app.get('/cart', (req, res) => {
                 client.close()
             })
     }
+})
+
+app.get('/delete', (req, res) => {
+    let username = req.query.username
+        client
+            .connect()
+            .then(() => {
+                const collection = client.db("wikiShop")
+                        .collection("CartItems")
+
+                let query = {username: username}
+                return collection.deleteMany(query)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+            .finally(() => {
+                console.log("close");
+                client.close()
+            })
 })

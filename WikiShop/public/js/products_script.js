@@ -15,10 +15,10 @@ const products_url = url.concat(category_id).concat("/products")
 const sub_categories_url = url.concat(category_id).concat("/subcategories")
 
 var templates = {}
+let products, sub_categories;
 
 window.addEventListener('load', async () => {
-    let products, sub_categories;
-
+    
     await fetch(products_url, initHeaders)
     .then(response => response.json())
     .then(obj => {

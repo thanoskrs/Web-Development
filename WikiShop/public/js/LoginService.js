@@ -1,5 +1,6 @@
 let username;
 let sessionId;
+let totalCartItems = 0;
 
 window.onload = function() {
     username = localStorage.getItem("username")
@@ -7,6 +8,7 @@ window.onload = function() {
     console.log(username);
     console.log(sessionId);
     openOrCloseForm()
+    showCartOrNo()
 }
 
 
@@ -30,6 +32,7 @@ function closeForm() {
 function logOut() {
     sessionId = null;
     openOrCloseForm()
+    showCartOrNo()
 }
 
 async function sendData() {
@@ -52,14 +55,15 @@ async function sendData() {
     .then(response => response.json())
     .then(obj => {
         sessionId = obj.message
+        totalCartItems = obj.totalCartItems
     })
 
-    if(sessionId !== null) {
-        openOrCloseForm()
-    } else {
+    if(sessionId === null) {
         document.getElementById("invalid_data").innerHTML = "Invalid username or password"
     }
 
+    openOrCloseForm()
+    showCartOrNo()
     document.getElementById("login-form").reset();
 }
 
@@ -83,3 +87,14 @@ const encryptWithAES = (text) => {
     const passphrase = '123';
     return CryptoJS.AES.encrypt(text, passphrase).toString();
 };
+
+function showCartOrNo() {
+    let cartElement = document.getElementById("cart-section")
+    document.getElementById("totalCartItems").innerHTML = totalCartItems;
+    document.getElementById("cart-section")
+    if(sessionId === null || sessionId === "null") {
+        cartElement.style.display = "none"
+    } else {
+        cartElement.style.display = "flex"
+    }
+}

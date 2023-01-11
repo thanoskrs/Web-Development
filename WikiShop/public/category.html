@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>WikiShop</title>
-        <link href="../images/Wikipedia-logo-v2.svg.png" rel="shortcut icon" type="image/png"/>
+        <link href="images/Wikipedia-logo-v2.svg.png" rel="shortcut icon" type="image/png"/>
 
         <meta charset="UTF-8">
 
@@ -44,7 +44,13 @@
         </header>
 
         <main>
-            <a href="cart.html">cart</a>
+            <section id="cart-section">
+                <a href="cart.html">
+                    <img id="cart-img" src="images/cart.png">
+                    <p id="totalCartItems"></p>
+                </a>
+                
+            </section>
             <!-- A button to open the popup form -->
             <button id="open-button" onclick="openForm()">Log in</button>
             <button id="log-out" onclick="logOut()">Log out</button>
@@ -68,7 +74,9 @@
             <div class="background" id="filter">
                 <select id="sub-category-select" onchange="selectSubCategory()"> </select>
             </div>
-            <ul class="background" id="product-list"> </ul>
+            <section>
+                <ul class="background" id="product-list"> </ul>
+            </section>
         </main>
 
         <footer>

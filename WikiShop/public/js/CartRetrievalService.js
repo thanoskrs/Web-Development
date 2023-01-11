@@ -1,4 +1,3 @@
-
 let myHeaders = new Headers();
 myHeaders.append('Accept', 'application/json')
 
@@ -10,24 +9,26 @@ let initHeaders = {
 window.addEventListener('load', async () => {
     let username = localStorage.getItem("username")
     let sessionId = sessionStorage.getItem("sessionId")
-    let cartItems;
+    let info;
     let url = `http://localhost:8080/cart?username=${username}&sessionId=${sessionId}`
 
     await fetch(url, initHeaders)
         .then(response => response.json())
         .then(obj => {
-            cartItems = obj.cartItems
-            console.log(cartItems);
+            info = obj
         })
+    
 
     var templates = {}
     let cartItemsTemplateScript = document.getElementById("cart-items-table-template")
-    templates.cartItems = Handlebars.compile(cartItemsTemplateScript.textContent)
+    templates.info = Handlebars.compile(cartItemsTemplateScript.textContent)
 
-    let content = templates.cartItems({
-        array: cartItems
+    let content = templates.info({
+        array: info
     })
     let table = document.getElementById("cart-table")
 
     table.innerHTML = content
+
+    document.getElementById("loader").style.display = "none";
 });

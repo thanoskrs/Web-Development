@@ -11,12 +11,18 @@ async function addToCart(productId) {
             headers: myHeaders
         }
     
-        let url = `http://localhost:8080/category.html/cart/?username=${username}&productId=${productId}&sessionId=${sessionId}`
+        let productToAdd = products.find(p => p.id == productId)
+
+        let url = `http://localhost:8080/category.html/cart/?username=${username}&sessionId=${sessionId}&title=${productToAdd.title}&cost=${productToAdd.cost}`
     
         await fetch(url, initHeaders)
-        .then(response => response.json())
-        .then(obj => {
-            sessionId = obj.message
+        .then(response => {
+            totalCartItems += 1
+            document.getElementById("totalCartItems").innerHTML = totalCartItems;
         })
+        .catch(err => {
+            console.log(err);
+        })
+
     }
 }

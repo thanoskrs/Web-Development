@@ -169,8 +169,8 @@ app.get('/cart', (req, res) => {
                     delete item.username;
                 })
 
-                let totalCost = String(cartItems.map(i => parseInt(i.cost * i.quantity))
-                                        .reduce((a, b) => a + b, 0)) + ' €'
+                let totalCost = '€ ' + String(cartItems.map(i => parseInt(i.cost * i.quantity))
+                                        .reduce((a, b) => a + b, 0))
 
                 let totalCartItems = cartItems.map(i => parseInt(i.quantity))
                                         .reduce((a, b) => a + b, 0)

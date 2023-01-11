@@ -121,12 +121,12 @@ p {
     text-shadow: 0px 1px;
 }
 
-b {
+/* b {
     color: #aa665b;
     font-family: "Verdana", sans-serif;
     font-style: italic;
     text-shadow: 0px 1px;
-}
+} */
 
 #sub-category-select {
     border-radius: 12px;
@@ -308,9 +308,15 @@ tfoot {
   background-color: #88201238;
 }
 
-tfoot b {
+b {
   color: #882012;
   font-family: none;
   font-style: normal;
   font-size: large;
+}
+
+#cart h1, #cart p{
+  margin-top: 2em;
+  margin-bottom: 2em;
+  text-align: center;
 }

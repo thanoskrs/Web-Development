@@ -17,7 +17,6 @@ window.addEventListener('load', async () => {
         .then(obj => {
             info = obj
         })
-    
 
     var templates = {}
     let cartItemsTemplateScript = document.getElementById("cart-items-table-template")
@@ -31,4 +30,9 @@ window.addEventListener('load', async () => {
     table.innerHTML = content
 
     document.getElementById("loader").style.display = "none";
+    if(info.totalCartItems == 0) {
+        document.getElementById("cart-error").innerHTML = "No products have been added to cart."
+        document.getElementById("cart-error").style.color = "red"
+        document.getElementById("cart-table").deleteTFoot();
+    }
 });

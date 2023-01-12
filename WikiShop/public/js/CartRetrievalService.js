@@ -1,3 +1,7 @@
+let products = JSON.parse(localStorage.getItem('products'))
+let username = localStorage.getItem("username")
+let sessionId = sessionStorage.getItem("sessionId")
+
 let myHeaders = new Headers();
 myHeaders.append('Accept', 'application/json')
 
@@ -6,9 +10,54 @@ let initHeaders = {
     headers: myHeaders
 }
 
-window.addEventListener('load', async () => {
-    let username = localStorage.getItem("username")
-    let sessionId = sessionStorage.getItem("sessionId")
+window.addEventListener('load',updateCart());
+
+async function removeItem(title) {
+    if(sessionId !== null || sessionId !== "null") {
+        let myHeaders = new Headers()
+        myHeaders.append('Content-Type', 'application/json')
+    
+        let initHeaders = {
+            method: "POST",
+            headers: myHeaders
+        }
+    
+        let productToAdd = products.find(p => p.title == title)
+
+        let url = `http://localhost:8080/removeFromCart/?username=${username}&sessionId=${sessionId}&title=${productToAdd.title}&cost=${productToAdd.cost}`
+    
+        await fetch(url, initHeaders)
+        .catch(err => {
+            console.log(err);
+        })
+    }
+    updateCart()
+}
+
+async function addItem(title) {
+    if(sessionId !== null || sessionId !== "null") {
+        let myHeaders = new Headers()
+        myHeaders.append('Content-Type', 'application/json')
+    
+        let initHeaders = {
+            method: "POST",
+            headers: myHeaders
+        }
+    
+        let productToAdd = products.find(p => p.title == title)
+
+        let url = `http://localhost:8080/addToCart/?username=${username}&sessionId=${sessionId}&title=${productToAdd.title}&cost=${productToAdd.cost}`
+    
+        await fetch(url, initHeaders)
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    updateCart()
+}
+
+async function updateCart() {
     let info;
     let url = `http://localhost:8080/cart?username=${username}&sessionId=${sessionId}`
 
@@ -35,4 +84,4 @@ window.addEventListener('load', async () => {
         document.getElementById("cart-error").style.color = "red"
         document.getElementById("cart-table").deleteTFoot();
     }
-});
+}

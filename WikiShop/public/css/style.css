@@ -289,8 +289,9 @@ table tr {
 }
 
 #loader {
+    margin: auto;
     margin-top: 10em;
-    margin-left: 50%;
+    align-self: center;
     border: 5px solid #f3f3f3; /* Light grey */
     border-top: 5px solid #3498db; /* Blue */
     border-radius: 50%;
@@ -319,4 +320,21 @@ b {
   margin-top: 2em;
   margin-bottom: 2em;
   text-align: center;
+}
+
+#remove-item {
+  margin-right: 1em;
+}
+
+#add-item {
+  margin-left: 1em;
+}
+
+#remove-item, #add-item {
+  background-color: #fbffff;
+  border-color: rgba(220, 220, 220, 0.936);
+}
+
+#remove-item:hover, #add-item:hover {
+  background-color: #ebf3f3;
 }

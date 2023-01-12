@@ -1,15 +1,5 @@
 require('uuid')
 require('./users')
-require('blueimp-md5')
-//var md5 = require('blueimp-md5')
-const CryptoJS = require('crypto-js')
-
-// const decryptWithAES = (ciphertext) => {
-//     const passphrase = '123';
-//     const bytes = CryptoJS.AES.decrypt(ciphertext, passphrase);
-//     const originalText = bytes.toString(CryptoJS.enc.Utf8);
-//     return originalText;
-//   };
 
 const express = require('express')
 const path = require('path')
@@ -32,13 +22,9 @@ const options = {
 // initialize mongoDb connection
 const {MongoClient} = require('mongodb');
 const uri = "mongodb+srv://wikiShop:wikiShopProject@cluster0.bbjrdwz.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri,
-    {useNewUrlParser: true, useUnifiedTopology: true});
+const client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.post('/category.html/login', async (req, res) => {
-
-    console.log("POST");
-
     let username = req.query.username
     let password = req.query.password
     
@@ -74,16 +60,16 @@ app.post('/category.html/login', async (req, res) => {
         .catch(err => {
             console.log(err);
         })
-        .finally(() => {
-            client.close()
-        })
+        // .finally(() => {
+        //     client.close()
+        // })
     }
 
     res.send({"message": sessionId,
                 "totalCartItems": totalCartItems})
 })
 
-app.post('/category.html/cart', async (req, res) => {
+app.post('/addToCart', async (req, res) => {
 
     let username = req.query.username
     let sessionId = req.query.sessionId
@@ -131,15 +117,68 @@ app.post('/category.html/cart', async (req, res) => {
         .catch(err => {
             console.log(err);
         })
-        .finally(() => {
-            console.log("close");
-            client.close()
+    }
+
+    if (found) {
+        res.sendStatus(200)
+    } else {
+        res.sendStatus(400)
+    }
+
+})
+
+app.post('/removeFromCart', async (req, res) => {
+
+    let username = req.query.username
+    let sessionId = req.query.sessionId
+    let title = req.query.title
+
+    let found = false;
+    
+    users.forEach(user => {
+        if(user.username == username && user.sessionId == sessionId) {
+            found = true;
+        }
+    })
+
+    var collection, query;
+
+    if(found) {
+        await client
+        .connect()
+        .then(() => {
+            collection = client.db("wikiShop")
+                    .collection("CartItems")
+
+            query = {username: username, title: title}
+            return collection.findOne(query)
+        })
+        .then(cartItem => {
+            if(cartItem != null) {
+                if(cartItem.quantity > 1) {
+                    let update = {
+                        $set: {
+                            quantity: cartItem.quantity - 1
+                        }
+                    }
+                    return collection.updateOne(query, update)
+                } else {
+                    return collection.deleteOne(query)
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err);
         })
     }
 
-    res.send({"message": sessionId})
-})
+    if (found) {
+        res.sendStatus(200)
+    } else {
+        res.sendStatus(400)
+    }
 
+})
 
 app.get('/cart', (req, res) => {
     let username = req.query.username
@@ -180,12 +219,14 @@ app.get('/cart', (req, res) => {
             .catch(err => {
                 console.log(err);
             })
-            .finally(() => {
-                console.log("close");
-                client.close()
-            })
+            // .finally(() => {
+            //     console.log("close");
+            //     client.close()
+            // })
     }
 })
+
+
 
 app.get('/delete', (req, res) => {
     let username = req.query.username
@@ -201,8 +242,9 @@ app.get('/delete', (req, res) => {
             .catch(err => {
                 console.log(err);
             })
-            .finally(() => {
-                console.log("close");
-                client.close()
-            })
+            // .finally(() => {
+            //     console.log("close");
+            //     client.close()
+            // })
 })
+

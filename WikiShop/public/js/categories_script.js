@@ -9,7 +9,6 @@ let initHeaders = {
 const url = "https://wiki-shop.onrender.com/categories"
 
 window.addEventListener('load', async () => {
-
     let categories;
     await fetch(url, initHeaders)
     .then(response => response.json())

@@ -5,12 +5,13 @@ let totalCartItems = 0;
 window.onload = function() {
     username = localStorage.getItem("username")
     sessionId = sessionStorage.getItem('sessionId')
-    console.log(username);
-    console.log(sessionId);
+    if(localStorage.getItem("totalCartItems") != undefined) {
+        totalCartItems = parseInt(localStorage.getItem("totalCartItems"))
+    }
+    console.log(localStorage.getItem("totalCartItems"))
     openOrCloseForm()
     showCartOrNo()
 }
-
 
 function openForm() {
     document.getElementById("login-div").style.display = "block";
@@ -36,7 +37,6 @@ function logOut() {
 }
 
 async function sendData() {
-
     username = document.getElementById("username").value
     let password = document.getElementById("password").value
 
@@ -48,7 +48,6 @@ async function sendData() {
         headers: myHeaders
     }
 
-    //password = encryptWithAES(password);
     let url = `http://localhost:8080/category.html/login?username=${username}&password=${password}`
 
     await fetch(url, initHeaders)
@@ -56,13 +55,14 @@ async function sendData() {
     .then(obj => {
         sessionId = obj.message
         totalCartItems = obj.totalCartItems
+        openOrCloseForm()
     })
 
     if(sessionId === null) {
         document.getElementById("invalid_data").innerHTML = "Invalid username or password"
     }
 
-    openOrCloseForm()
+    // openOrCloseForm()
     showCartOrNo()
     document.getElementById("login-form").reset();
 }
@@ -80,18 +80,14 @@ function openOrCloseForm() {
 
 window.onbeforeunload = function() {
     localStorage.setItem("username", username)
+    localStorage.setItem("totalCartItems", totalCartItems)
+    localStorage.setItem("products", JSON.stringify(products))
     sessionStorage.setItem("sessionId", sessionId)
 }
-
-const encryptWithAES = (text) => {
-    const passphrase = '123';
-    return CryptoJS.AES.encrypt(text, passphrase).toString();
-};
 
 function showCartOrNo() {
     let cartElement = document.getElementById("cart-section")
     document.getElementById("totalCartItems").innerHTML = totalCartItems;
-    document.getElementById("cart-section")
     if(sessionId === null || sessionId === "null") {
         cartElement.style.display = "none"
     } else {

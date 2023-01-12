@@ -24,9 +24,13 @@
                 <tbody>
                     {{#each array.cartItems}}
                     <tr>
-                        {{#each this}}
-                        <td>{{this}}</td>
-                        {{/each}}
+                        <td>{{title}}</td>
+                        <td>
+                            <button id="remove-item" value="{{title}}" onclick="removeItem(this.value)">-</button>
+                            {{quantity}}
+                            <button id="add-item" value="{{title}}" onclick="addItem(this.value)">+</button>
+                        </td>
+                        <td>{{cost}}</td>
                     </tr>
                     {{/each}}
                 </tbody>

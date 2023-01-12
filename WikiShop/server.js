@@ -60,9 +60,6 @@ app.post('/category.html/login', async (req, res) => {
         .catch(err => {
             console.log(err);
         })
-        // .finally(() => {
-        //     client.close()
-        // })
     }
 
     res.send({"message": sessionId,
@@ -219,10 +216,6 @@ app.get('/cart', (req, res) => {
             .catch(err => {
                 console.log(err);
             })
-            // .finally(() => {
-            //     console.log("close");
-            //     client.close()
-            // })
     }
 })
 
@@ -242,9 +235,5 @@ app.get('/delete', (req, res) => {
             .catch(err => {
                 console.log(err);
             })
-            // .finally(() => {
-            //     console.log("close");
-            //     client.close()
-            // })
 })
 

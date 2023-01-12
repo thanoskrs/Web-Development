@@ -1,4 +1,3 @@
-let products = JSON.parse(localStorage.getItem('products'))
 let username = localStorage.getItem("username")
 let sessionId = sessionStorage.getItem("sessionId")
 
@@ -22,9 +21,7 @@ async function removeItem(title) {
             headers: myHeaders
         }
     
-        let productToAdd = products.find(p => p.title == title)
-
-        let url = `http://localhost:8080/removeFromCart/?username=${username}&sessionId=${sessionId}&title=${productToAdd.title}&cost=${productToAdd.cost}`
+        let url = `http://localhost:8080/removeFromCart/?username=${username}&sessionId=${sessionId}&title=${title}`
     
         await fetch(url, initHeaders)
         .catch(err => {
@@ -44,9 +41,7 @@ async function addItem(title) {
             headers: myHeaders
         }
     
-        let productToAdd = products.find(p => p.title == title)
-
-        let url = `http://localhost:8080/addToCart/?username=${username}&sessionId=${sessionId}&title=${productToAdd.title}&cost=${productToAdd.cost}`
+        let url = `http://localhost:8080/addToCart/?username=${username}&sessionId=${sessionId}&title=${title}`
     
         await fetch(url, initHeaders)
         .catch(err => {

@@ -26,4 +26,6 @@ window.addEventListener('load', async () => {
     let div = document.getElementById("categories")
 
     div.innerHTML = content
+
+    document.getElementById("loader").style.display = "none";
 });

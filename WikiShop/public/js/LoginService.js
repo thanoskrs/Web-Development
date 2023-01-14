@@ -2,14 +2,18 @@ let username;
 let sessionId;
 let totalCartItems = 0;
 
-window.onload = function() {
+window.onload = async function() {
     username = localStorage.getItem("username")
     sessionId = sessionStorage.getItem('sessionId')
-    if(localStorage.getItem("totalCartItems") != undefined) {
-        totalCartItems = parseInt(localStorage.getItem("totalCartItems"))
-    }
-    console.log(localStorage.getItem("totalCartItems"))
     openOrCloseForm()
+
+    let url = `http://localhost:8080/getTotalCartItems?username=${username}&sessionId=${sessionId}`
+
+    await fetch(url, initHeaders)
+    .then(response => response.json())
+    .then(obj => {
+        totalCartItems = obj.totalCartItems
+    })
     showCartOrNo()
 }
 
@@ -37,6 +41,7 @@ function logOut() {
 }
 
 async function sendData() {
+
     username = document.getElementById("username").value
     let password = document.getElementById("password").value
 
@@ -58,13 +63,14 @@ async function sendData() {
         openOrCloseForm()
     })
 
+    document.getElementById("loader").style.display = "none"
+
     if(sessionId === null) {
         document.getElementById("invalid_data").innerHTML = "Invalid username or password"
     }
 
-    // openOrCloseForm()
-    showCartOrNo()
     document.getElementById("login-form").reset();
+    showCartOrNo()
 }
 
 function openOrCloseForm() {
@@ -80,13 +86,12 @@ function openOrCloseForm() {
 
 window.onbeforeunload = function() {
     localStorage.setItem("username", username)
-    localStorage.setItem("totalCartItems", totalCartItems)
     localStorage.setItem("products", JSON.stringify(products))
     sessionStorage.setItem("sessionId", sessionId)
 }
 
 function showCartOrNo() {
-    let cartElement = document.getElementById("cart-section")
+    let cartElement = document.getElementById("cart-container")
     document.getElementById("totalCartItems").innerHTML = totalCartItems;
     if(sessionId === null || sessionId === "null") {
         cartElement.style.display = "none"

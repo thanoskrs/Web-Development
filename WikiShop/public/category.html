@@ -29,8 +29,8 @@
                     <h2>{{title}}</h2>
                     <img src={{image}} alt={{title}} width="350px" height="350px">
                     <p>Price: <b>€{{cost}}</b></p>
-                    <p>{{description}}</p>
-                    <button type="button" value={{id}} onclick="addToCart(this.value)" id="add-to-cart">Add to Cart</button>
+                    <p class="description"> {{description}}</p>
+                    <button type="button" class="btn" value={{id}} onclick="addToCart(this.value)" id="add-to-cart">Add to Cart</button>
                 </li>
             {{/each}}
         </script>
@@ -43,15 +43,25 @@
         </header>
 
         <main>
-            <section id="cart-section">
+            <div id="cart-container">
                 <a href="cart.html">
-                    <img id="cart-img" src="images/cart.png">
-                    <p id="totalCartItems"></p>
+                    <img id="cart-img" src="images/cart.jpg">
                 </a>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-number" id="totalCartItems"></span>
+              </div>
+            <section class="background">
+                <div id="loader"></div>
+                <div id="filter">
+                    <select id="sub-category-select" onchange="selectSubCategory()"> </select>
+                </div>
+                <div>
+                    <ul id="product-list"> </ul>
+                </div>
             </section>
             <!-- A button to open the popup form -->
-            <button id="open-button" onclick="openForm()">Sign in</button>
-            <button id="log-out" onclick="logOut()">Log out</button>
+            <button id="open-button" class="btn" onclick="openForm()">Sign in</button>
+            <button id="log-out" class="btn" onclick="logOut()">Log out</button>
             <!-- The form -->
             <div class="form-popup" id="login-div">
                 <form action="#" class="form-container" id="login-form">
@@ -64,16 +74,10 @@
 
                     <p id="invalid_data"></p>
 
-                    <button type="button" onclick="sendData()" class="btn">Login</button>
+                    <button type="button" class="btn" onclick="sendData()" class="btn">Login</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                 </form>
             </div>
-            <div class="background" id="filter">
-                <select id="sub-category-select" onchange="selectSubCategory()"> </select>
-            </div>
-            <section>
-                <ul class="background" id="product-list"> </ul>
-            </section>
         </main>
 
         <footer>

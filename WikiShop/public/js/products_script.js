@@ -35,6 +35,7 @@ window.addEventListener('load', async () => {
     updateContent("sub-categories-template", sub_categories, "sub-category-select")
 
     let select = document.getElementById("sub-category-select")
+
     select.onchange = function() {
         let subCategorySelected = parseInt(select.value)
         if (subCategorySelected === 0) {
@@ -43,6 +44,9 @@ window.addEventListener('load', async () => {
             updateContent("products-template", products.filter(obj => obj.subcategory_id === subCategorySelected), "product-list")
         }
     }
+
+    select.style.display = "block";
+    document.getElementById("loader").style.display = "none";
 });
 
 let updateContent = function(templateId, array, elementId) {

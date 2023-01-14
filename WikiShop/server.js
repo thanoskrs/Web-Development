@@ -41,25 +41,7 @@ app.post('/category.html/login', async (req, res) => {
     })
 
     if(found) {
-        await client
-        .connect()
-        .then(() => {
-            collection = client.db("wikiShop")
-                    .collection("CartItems")
-
-            query = {username: username}
-            return collection.find(query).toArray()
-        })
-        .then(cartItems => {
-            if(cartItems !== null) {
-                totalCartItems = cartItems
-                                        .map(cartItem => parseInt(cartItem.quantity))
-                                        .reduce((a, b) =>  a + b, 0)
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        totalCartItems = await getCartItems(username);
     }
 
     res.send({"message": sessionId,
@@ -215,6 +197,7 @@ app.get('/clearCart', (req, res) => {
                         .collection("CartItems")
 
                 let query = {username: username}
+                console.log("dle")
                 return collection.deleteMany(query)
             })
             .catch(err => {
@@ -222,6 +205,20 @@ app.get('/clearCart', (req, res) => {
             })
     }
     res.sendStatus(200)
+})
+
+app.get("/getTotalCartItems", async (req, res) => {
+    let username = req.query.username
+    let sessionId = req.query.sessionId
+
+    let found = searchUser(username, sessionId);
+    let totalCartItems = 0;
+
+    if(found) {
+        totalCartItems = await getCartItems(username);
+    }
+
+    res.send({"totalCartItems": totalCartItems})
 })
 
 function searchUser(username, sessionId) {
@@ -232,4 +229,29 @@ function searchUser(username, sessionId) {
         }
     })
     return found;
+}
+
+async function getCartItems(username) {
+    let totalCartItems = 0
+    await client
+        .connect()
+        .then(() => {
+            collection = client.db("wikiShop")
+                    .collection("CartItems")
+
+            query = {username: username}
+            return collection.find(query).toArray()
+        })
+        .then(cartItems => {
+            if(cartItems !== null) {
+                totalCartItems = cartItems
+                                        .map(cartItem => parseInt(cartItem.quantity))
+                                        .reduce((a, b) =>  a + b, 0)
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
+    return totalCartItems
 }

@@ -41,6 +41,9 @@
                     <td><b>{{array.totalCartItems}}</b></td>
                     <td><b>{{array.totalCost}}</b></td>
                 </tr>
+                <tr>
+                    <td colspan="3"><button id="clear-cart" onclick="clearCart()">Clear Cart</button></td>
+                </tr>
             </tfoot>
         </script>
 
@@ -57,6 +60,7 @@
                 <p id="cart-error"></p>
                 <div id="loader"></div>
 			    <table id="cart-table" class="table" ></table>
+                
 		    </section>
         </main>
 

@@ -3,7 +3,7 @@ require('./users')
 
 const express = require('express')
 const path = require('path')
-const { v4, NIL } = require('uuid')
+const { v4 } = require('uuid')
 const app = express()
 const port = 8080
 
@@ -73,13 +73,7 @@ app.post('/addToCart', async (req, res) => {
     let title = req.query.title
     let cost = req.query.cost
 
-    let found = false;
-    
-    users.forEach(user => {
-        if(user.username == username && user.sessionId == sessionId) {
-            found = true;
-        }
-    })
+    let found = searchUser(username, sessionId);
 
     var collection, query;
 
@@ -130,13 +124,7 @@ app.post('/removeFromCart', async (req, res) => {
     let sessionId = req.query.sessionId
     let title = req.query.title
 
-    let found = false;
-    
-    users.forEach(user => {
-        if(user.username == username && user.sessionId == sessionId) {
-            found = true;
-        }
-    })
+    let found = searchUser(username, sessionId);
 
     var collection, query;
 
@@ -181,13 +169,7 @@ app.get('/cart', (req, res) => {
     let username = req.query.username
     let sessionId = req.query.sessionId;
 
-    let found = false;
-
-    users.forEach(user => {
-        if(user.username == username && user.sessionId == sessionId) {
-            found = true;
-        }
-    })
+    let found = searchUser(username, sessionId);
 
     if(found) {
         client
@@ -219,10 +201,13 @@ app.get('/cart', (req, res) => {
     }
 })
 
-
-
-app.get('/delete', (req, res) => {
+app.get('/clearCart', (req, res) => {
     let username = req.query.username
+    let sessionId = req.query.sessionId;
+
+    let found = searchUser(username, sessionId);
+
+    if(found) {
         client
             .connect()
             .then(() => {
@@ -235,5 +220,16 @@ app.get('/delete', (req, res) => {
             .catch(err => {
                 console.log(err);
             })
+    }
+    res.sendStatus(200)
 })
 
+function searchUser(username, sessionId) {
+    let found = false;
+    users.forEach(user => {
+        if(user.username == username && user.sessionId == sessionId) {
+            found = true;
+        }
+    })
+    return found;
+}

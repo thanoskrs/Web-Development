@@ -80,3 +80,14 @@ async function updateCart() {
         document.getElementById("cart-table").deleteTFoot();
     }
 }
+
+async function clearCart() {
+    let url = `http://localhost:8080/clearCart?username=${username}&sessionId=${sessionId}`
+
+    await fetch(url, initHeaders)
+    .catch(err => {
+        console.log(err);
+    })
+    
+    updateCart()
+}

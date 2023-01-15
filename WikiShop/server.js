@@ -1,5 +1,5 @@
 require('uuid')
-require('./users')
+var crypto = require("crypto");
 
 const express = require('express')
 const path = require('path')
@@ -24,20 +24,39 @@ const {MongoClient} = require('mongodb');
 const uri = "mongodb+srv://wikiShop:wikiShopProject@cluster0.bbjrdwz.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
-app.post('/category.html/login', async (req, res) => {
-    let username = req.query.username
-    let password = req.query.password
+app.post('/login', async (req, res) => {
+    let username = req.body.username;
+    let password = req.body.hashed;
+
+    let hashed = crypto.createHash("sha256").update(password.toString()).digest("hex");
     
     let found = false;
     let sessionId = null;
     let totalCartItems = 0;
 
-    users.forEach(user => {
-        if(user.username == username && user.password == password) {
-            found = true;
+    await client
+    .connect()
+    .then(() => {
+        collection = client.db("wikiShop")
+                .collection("Users")
+
+        query = {username: username, password: hashed}
+        return collection.findOne(query)
+    })
+    .then(user => {
+        if(user != null) {
+            found = true
             sessionId = v4()
-            user.sessionId = sessionId
+            let update = {
+                $set: {
+                    sessionId: sessionId
+                }
+            }
+            return collection.updateOne(query, update)
         }
+    })
+    .catch(err => {
+        console.log(err);
     })
 
     if(found) {
@@ -48,6 +67,44 @@ app.post('/category.html/login', async (req, res) => {
                 "totalCartItems": totalCartItems})
 })
 
+app.post("/signup", async (req, res) => {
+    let username = req.body.username;
+    let password = req.body.hashed;
+
+    let hashed = crypto.createHash("sha256").update(password.toString()).digest("hex");
+    
+    let sessionId = null;
+    let totalCartItems = 0;
+
+    await client
+    .connect()
+    .then(() => {
+        collection = client.db("wikiShop")
+                .collection("Users")
+
+        query = {username: username}
+        return collection.findOne(query)
+    })
+    .then(user => {
+        if(user == null) {
+            sessionId = v4()
+            let newUser = {
+                username: username,
+                password: hashed,
+                sessionId: sessionId
+            }
+            return collection.insertOne(newUser)
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
+    res.send({"message": sessionId,
+                "totalCartItems": totalCartItems})
+})
+
+
 app.post('/addToCart', async (req, res) => {
 
     let username = req.query.username
@@ -55,7 +112,7 @@ app.post('/addToCart', async (req, res) => {
     let title = req.query.title
     let cost = req.query.cost
 
-    let found = searchUser(username, sessionId);
+    let found = await searchUser(username, sessionId);
 
     var collection, query;
 
@@ -106,7 +163,7 @@ app.post('/removeFromCart', async (req, res) => {
     let sessionId = req.query.sessionId
     let title = req.query.title
 
-    let found = searchUser(username, sessionId);
+    let found = await searchUser(username, sessionId);
 
     var collection, query;
 
@@ -147,12 +204,11 @@ app.post('/removeFromCart', async (req, res) => {
 
 })
 
-app.get('/cart', (req, res) => {
+app.get('/cart', async (req, res) => {
     let username = req.query.username
     let sessionId = req.query.sessionId;
 
-    let found = searchUser(username, sessionId);
-
+    let found = await searchUser(username, sessionId);
     if(found) {
         client
             .connect()
@@ -175,19 +231,20 @@ app.get('/cart', (req, res) => {
                 let totalCartItems = cartItems.map(i => parseInt(i.quantity))
                                         .reduce((a, b) => a + b, 0)
 
+
                 res.send({cartItems, totalCost, totalCartItems})
             })
             .catch(err => {
                 console.log(err);
             })
-    }
+        }
 })
 
-app.get('/clearCart', (req, res) => {
+app.get('/clearCart', async (req, res) => {
     let username = req.query.username
     let sessionId = req.query.sessionId;
 
-    let found = searchUser(username, sessionId);
+    let found = await searchUser(username, sessionId);
 
     if(found) {
         client
@@ -197,7 +254,6 @@ app.get('/clearCart', (req, res) => {
                         .collection("CartItems")
 
                 let query = {username: username}
-                console.log("dle")
                 return collection.deleteMany(query)
             })
             .catch(err => {
@@ -211,7 +267,7 @@ app.get("/getTotalCartItems", async (req, res) => {
     let username = req.query.username
     let sessionId = req.query.sessionId
 
-    let found = searchUser(username, sessionId);
+    let found = await searchUser(username, sessionId);
     let totalCartItems = 0;
 
     if(found) {
@@ -221,13 +277,25 @@ app.get("/getTotalCartItems", async (req, res) => {
     res.send({"totalCartItems": totalCartItems})
 })
 
-function searchUser(username, sessionId) {
+async function searchUser(username, sessionId) {
     let found = false;
-    users.forEach(user => {
-        if(user.username == username && user.sessionId == sessionId) {
-            found = true;
-        }
-    })
+    await client
+        .connect()
+        .then(() => {
+            const collection = client.db("wikiShop")
+                    .collection("Users")
+
+            let query = {username: username, sessionId: sessionId}
+            return collection.findOne(query)
+        })
+        .then(user => {
+            if (user != null) {
+                found = true
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
     return found;
 }
 

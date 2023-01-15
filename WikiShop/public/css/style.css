@@ -40,7 +40,6 @@ header a:hover {
 /* Στιλ παραγράφων με σκίαση*/
 p {
     font-family: "Verdana", sans-serif;
-    text-shadow: 0px 1px;
 }
 
 /*Διαταξη της about us*/
@@ -118,7 +117,6 @@ footer {
 p {
     color: black;
     font-family: "Verdana", sans-serif;
-    text-shadow: 0px 1px;
 }
 
 #sub-category-select {
@@ -133,7 +131,7 @@ p {
 #filter {
     display: flex;
     justify-content: center;
-    margin-top: 3em;
+    margin-top: 1.5em;
 }
 
 * {
@@ -195,7 +193,7 @@ p {
   opacity: 1;
 }
 
-#login-div b {
+#login-div b, #sign-up-div b {
   color: #000;
   font-style: normal;
 }
@@ -204,7 +202,7 @@ p {
     display: none;
 }
 
-#invalid_data {
+#invalid_data , #user-exists{
     font-family: paragraphFont;
     font-weight: normal;
     text-shadow: none;
@@ -356,4 +354,13 @@ b {
   position: absolute;
   top: 0;
   left: 45px;
+}
+
+#sign-up-text {
+  font-size: small;
+}
+
+#sign-up-text b {
+  color: #882012;
+  font-size: medium;
 }

@@ -1,5 +1,4 @@
 async function addToCart(productId) {
-
     if(sessionId === null || sessionId === "null") {
         openForm()
     } else {
@@ -14,7 +13,7 @@ async function addToCart(productId) {
         let productToAdd = products.find(p => p.id == productId)
 
         let url = `http://localhost:8080/addToCart/?username=${username}&sessionId=${sessionId}&title=${productToAdd.title}&cost=${productToAdd.cost}`
-    
+
         await fetch(url, initHeaders)
         .then(response => {
             if (response.status === 200) {

@@ -2,6 +2,12 @@ let username;
 let sessionId;
 let totalCartItems = 0;
 
+var perfEntries = performance.getEntriesByType("navigation");
+
+if (perfEntries[0].type === "back_forward") {
+    location.reload(true);
+}
+
 window.onload = async function() {
     username = localStorage.getItem("username")
     sessionId = sessionStorage.getItem('sessionId')
@@ -28,6 +34,7 @@ function openForm() {
   
 function closeForm() {
     document.getElementById("login-div").style.display = "none";
+    document.getElementById("sign-up-div").style.display = "none";
     var elements = document.getElementsByClassName("background")
     Array.prototype.forEach.call(elements, function(el) {
         el.style.opacity = 1;
@@ -35,6 +42,7 @@ function closeForm() {
 }
 
 function logOut() {
+    username = null;
     sessionId = null;
     openOrCloseForm()
     showCartOrNo()
@@ -45,17 +53,19 @@ async function sendData() {
     username = document.getElementById("username").value
     let password = document.getElementById("password").value
 
-    let myHeaders = new Headers()
-    myHeaders.append('Content-Type', 'application/json')
+    var hashed = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(password));
+    var data = {
+        hashed: Array.from(new Uint8Array(hashed)),
+        username: username
+    };
 
-    let initHeaders = {
+    let url = `http://localhost:8080/login`
+
+    await fetch(url, {
         method: "POST",
-        headers: myHeaders
-    }
-
-    let url = `http://localhost:8080/category.html/login?username=${username}&password=${password}`
-
-    await fetch(url, initHeaders)
+        headers: {"Content-type": "application/json;charset=UTF-8"},
+        body: JSON.stringify(data)
+    })
     .then(response => response.json())
     .then(obj => {
         sessionId = obj.message
@@ -98,4 +108,40 @@ function showCartOrNo() {
     } else {
         cartElement.style.display = "flex"
     }
+}
+
+function openSignUp() {
+    document.getElementById("login-div").style.display="none"
+    document.getElementById("sign-up-div").style.display="block"
+}
+
+async function signUp() {
+    username = document.getElementById("sign-up-username").value
+    let password = document.getElementById("sign-up-password").value
+
+    var hashed = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(password));
+    var data = {
+        hashed: Array.from(new Uint8Array(hashed)),
+        username: username
+    };
+
+    let url = `http://localhost:8080/signup`
+
+    await fetch(url, {
+        method: "POST",
+        headers: {"Content-type": "application/json;charset=UTF-8"},
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(obj => {
+        sessionId = obj.message
+        totalCartItems = obj.totalCartItems
+    })
+
+    if(sessionId == null) {
+        document.getElementById("user-exists").innerHTML = "Username already exists."
+    } 
+
+    openOrCloseForm()
+    showCartOrNo()
 }

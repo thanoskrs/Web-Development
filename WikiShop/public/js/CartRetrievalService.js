@@ -61,6 +61,9 @@ async function updateCart() {
         .then(obj => {
             info = obj
         })
+        .catch(err => {
+            console.log(err);
+        })
 
     var templates = {}
     let cartItemsTemplateScript = document.getElementById("cart-items-table-template")
@@ -88,6 +91,6 @@ async function clearCart() {
     .catch(err => {
         console.log(err);
     })
-    
+
     updateCart()
 }

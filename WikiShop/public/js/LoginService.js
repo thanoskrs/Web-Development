@@ -118,6 +118,16 @@ function openSignUp() {
 async function signUp() {
     username = document.getElementById("sign-up-username").value
     let password = document.getElementById("sign-up-password").value
+    let confirmPassword = document.getElementById("confirm-password").value
+
+    if (password != confirmPassword) {
+        document.getElementById("sign-up-error").innerHTML = "Passwords don't match"
+        return;
+    }
+
+    if(!passwordValidation(password)) {
+        return;
+    }
 
     var hashed = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(password));
     var data = {
@@ -139,9 +149,27 @@ async function signUp() {
     })
 
     if(sessionId == null) {
-        document.getElementById("user-exists").innerHTML = "Username already exists."
+        document.getElementById("sign-up-error").innerHTML = "Username already exists."
     } 
 
     openOrCloseForm()
     showCartOrNo()
+}
+
+function passwordValidation(password) {
+    const specialCharacters = /[!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/
+    const numbers = /[0-9]/
+    const upperCaseLetters = /[A-Z]/
+
+    if (!specialCharacters.test(password)) {
+        document.getElementById("sign-up-error").innerHTML = "The password should contain at least one special character."
+        return false;
+    }  else if (!numbers.test(password)) {
+        document.getElementById("sign-up-error").innerHTML= "Password should contain at least one number."
+        return false;
+    } else if (!upperCaseLetters.test(password)) {
+        document.getElementById("sign-up-error").innerHTML = "Password should contain at least one upper case letter."
+        return false;
+    } 
+    return true;
 }

@@ -143,7 +143,7 @@ p {
   display: none;
       position: fixed;
       left: 50%;
-      top: 20%;
+      top:15%;
       transform: translate(-50%, 5%);
       border: 3px solid #999999;
       z-index: 9;
@@ -202,7 +202,7 @@ p {
     display: none;
 }
 
-#invalid_data , #user-exists{
+#invalid_data , #sign-up-error {
     font-family: paragraphFont;
     font-weight: normal;
     text-shadow: none;

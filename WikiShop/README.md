@@ -1,5 +1,5 @@
 # WikiShop Project
-**Eshop selling products from WikiPedia, retrieving products by sending HTPP GET requests to https://wiki-shop.onrender.com, supprotet by a server
+**Eshop selling products from WikiPedia, retrieving products by sending HTPP GET requests to https://wiki-shop.onrender.com, supported by a server
 that handles user login and adding products to the cart**
 
 <br />

@@ -4,13 +4,13 @@ that handles user login and adding products to the cart**
 
 <br />
 
-Instructions to run the project:
+**Instructions to run the project:**
 * npm install
 * node server.js
 
 <br />
 
-In order to have access to the system and add products to cart:
+**In order to have access to the system and add products to cart:**
 * You can use existing credentials
 
 | Username | Password |
@@ -21,6 +21,10 @@ In order to have access to the system and add products to cart:
 * You can select sign in and then sign up action, in order to register as a new user. 
 
 <br />
-When a user logs in or signs up, the password is sent hashed using SHA256 for security purposes.
-In sign up action, the username and the password are sent to the server and the server stores them in the mongoDB database.
-When a user logs in, the server checks if the received username with the hashed password corresponds to a user within the database.
+
+**Flow of system operations:**
+* When a user logs in or signs up, the password is sent hashed using SHA256 for security purposes.
+* In sign up action, the username and the password are sent to the server and the server stores them in the mongoDB database.
+* When a user logs in, the server checks if the received username with the hashed password corresponds to a user within the database.
+* The user's cart is also stored in the database, so every time the user logs back in, their basket will be retrieved from the database and 
+access it without losing any data.

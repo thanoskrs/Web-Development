@@ -5,8 +5,9 @@ that handles user login and adding products to the cart**
 <br />
 
 **Instructions to run the project:**
-* npm install
-* node server.js
+1. npm install
+1. node server.js
+1. On browser enter: localhost:8080/
 
 <br />
 
